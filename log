@@ -116,3 +116,16 @@ Thu 07 Sep 2023 07:44:38 PM UTC:
  tests:  2|5
 total_score: 20/70
 e8ebacf
+Thu 07 Sep 2023 07:53:17 PM UTC: 
+ hashmap.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+In file included from test.c:4:
+hashmap.c: In function ‘insertMap’:
+hashmap.c:58:45: error: expected ‘)’ before ‘{’ token
+   58 |         while(map->buckets[posicion] != NULL{
+      |              ~                              ^
+hashmap.c:68:5: error: expected expression before ‘}’ token
+   68 |     }
+      |     ^
+Compilation failed
+7995f0c
