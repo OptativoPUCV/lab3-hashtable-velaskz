@@ -62,6 +62,8 @@ HashMap * createMap(long capacity) {
             return NULL;
         }
     }
+
+    nuevoMapa->size = 0;
     return nuevoMapa;
 }
 
