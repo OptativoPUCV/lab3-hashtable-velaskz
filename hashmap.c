@@ -55,16 +55,10 @@ void insertMap(HashMap * map, char * key, void * value) {
 
         nuevoPair->value = value;
         nuevoPair->key = key;
-        while(map->buckets[posicion] != NULL){
-           map->buckets[posicion] = nuevoPair;
-            posicion++;
-        }
+        map->buckets[posicion] = nuevoPair;
         
-
         //recorrer el mapa hasta encontrar un aposición vacía
         //posición++
-        
-        
     }
 }
 
