@@ -59,26 +59,7 @@ void insertMap(HashMap * map, char * key, void * value) {
         
         //recorrer el mapa hasta encontrar un aposición vacía
         //posición++
-    }else {
-        long siguientePosicion = (posicion + 1) % map->capacity;
-        while (siguientePosicion != posicion) {
-            if (map->buckets[siguientePosicion] == NULL || map->buckets[siguientePosicion]->key == NULL) {
-                map->size++;
-                Pair* nuevoPair = createPair(key, value);
-
-                if (nuevoPair == NULL) {
-                    free(nuevoPair);
-                    return;
-                }
-
-                nuevoPair->value = value;
-                nuevoPair->key = key;
-                map->buckets[siguientePosicion] = nuevoPair;
-                break;
-            }
-            siguientePosicion = (siguientePosicion + 1) % map->capacity;
-        }
-
+    }
 }
 
 void enlarge(HashMap * map) {
