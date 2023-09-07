@@ -57,7 +57,7 @@ HashMap * createMap(long capacity) {
         nuevoMapa->buckets = (Pair**)malloc(sizeof(Pair*) * capacity);
         if (nuevoMapa->buckets == NULL){
             free(nuevoMapa->buckets);
-            return;
+            return NULL;
         }
     }
     return nuevoMapa;
