@@ -7,3 +7,17 @@ Thu 07 Sep 2023 04:48:39 PM UTC:
  1 file changed, 4 insertions(+), 1 deletion(-)
  tests:  0|0
 fedaecf
+Thu 07 Sep 2023 06:56:59 PM UTC: 
+ hashmap.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+In file included from test.c:4:
+hashmap.c: In function ‘createMap’:
+hashmap.c:60:13: error: ‘return’ with no value, in function returning non-void [-Werror=return-type]
+   60 |             return;
+      |             ^~~~~~
+hashmap.c:54:11: note: declared here
+   54 | HashMap * createMap(long capacity) {
+      |           ^~~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+ff276db
