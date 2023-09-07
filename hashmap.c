@@ -60,13 +60,6 @@ void insertMap(HashMap * map, char * key, void * value) {
         //recorrer el mapa hasta encontrar un aposición vacía
         //posición++
     }else {
-        // La posición ya está ocupada, podemos manejar esto de varias maneras,
-        // una opción podría ser implementar una estrategia de manejo de colisiones,
-        // como encadenamiento o sondeo lineal. Por ejemplo, podríamos buscar la
-        // siguiente posición disponible en el arreglo y colocar el par clave-valor allí.
-        // Esto depende de la estrategia de manejo de colisiones que desees implementar.
-
-        // Ejemplo de sondeo lineal (busca la siguiente posición vacía):
         long siguientePosicion = (posicion + 1) % map->capacity;
         while (siguientePosicion != posicion) {
             if (map->buckets[siguientePosicion] == NULL || map->buckets[siguientePosicion]->key == NULL) {
