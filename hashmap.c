@@ -102,15 +102,13 @@ void enlarge(HashMap * map) {
 
         for (long i = 0; i < viejaCapacidad; i++) {
             if (viejoBuckets[i] != NULL && viejoBuckets[i]->key != NULL) {
-                // Calcula la nueva posición para el par clave-valor en el nuevo arreglo.
+
                 long nuevaPosicion = hash(viejoBuckets[i]->key, map->capacity);
 
-                // Inserta el par clave-valor en la nueva posición.
                 nuevoBuckets[nuevaPosicion] = viejoBuckets[i];
             }
         }
 
-        // Libera el antiguo arreglo de buckets y actualiza el hashmap.
         free(viejoBuckets);
         map->buckets = nuevoBuckets;
     }
