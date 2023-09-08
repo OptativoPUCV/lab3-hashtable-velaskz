@@ -75,9 +75,6 @@ void insertMap(HashMap * map, char * key, void * value) {
             }
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
-        if (siguientePosicion == posicion) {
-            printf("El mapa está lleno, no se pudo insertar el par clave-valor.\n");
-        }
     }
 }
 
