@@ -43,7 +43,6 @@ void insertMap(HashMap * map, char * key, void * value) {
     
     long posicion = hash(key, map->capacity);
 
-    // Comprobar si la posición está ocupada o si la clave ya existe
     if (map->buckets[posicion] == NULL || map->buckets[posicion]->key == NULL) {
         map->size++;
         Pair* nuevoPair = createPair(key, value);
