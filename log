@@ -307,3 +307,9 @@ hashmap.c:86:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__att
       | ^
 Compilation failed
 562e8cf
+Fri 08 Sep 2023 11:15:09 PM UTC: 
+ hashmap.c | 40 +++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 39 insertions(+), 1 deletion(-)
+ tests:  5|4
+total_score: 30/70
+0057efa

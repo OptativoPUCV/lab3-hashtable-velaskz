@@ -81,7 +81,45 @@ void insertMap(HashMap * map, char * key, void * value) {
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
 
-    float jjh
+        // Calcula el factor de carga actual.
+    float load_factor = (float)map->size / map->capacity;
+
+    if (load_factor > 0.7) {
+        // Hora de expandir.
+        long old_capacity = map->capacity;
+        Pair **old_buckets = map->buckets;
+
+        // Duplica la capacidad.
+        map->capacity = old_capacity * 2;
+
+        // Crea un nuevo arreglo de buckets con la nueva capacidad.
+        Pair **new_buckets = (Pair **)malloc(sizeof(Pair *) * map->capacity);
+
+        if (new_buckets == NULL) {
+            // Manejo de error: no se pudo asignar memoria para el nuevo arreglo.
+            return;
+        }
+
+        // Inicializa todos los buckets en el nuevo arreglo a NULL.
+        for (long i = 0; i < map->capacity; i++) {
+            new_buckets[i] = NULL;
+        }
+
+        // Recorre el antiguo arreglo de buckets y reinserta los elementos en el nuevo.
+        for (long i = 0; i < old_capacity; i++) {
+            if (old_buckets[i] != NULL && old_buckets[i]->key != NULL) {
+                // Calcula la nueva posición para el par clave-valor en el nuevo arreglo.
+                long new_position = hash(old_buckets[i]->key, map->capacity);
+
+                // Inserta el par clave-valor en la nueva posición.
+                new_buckets[new_position] = old_buckets[i];
+            }
+        }
+
+        // Libera el antiguo arreglo de buckets y actualiza el hashmap.
+        free(old_buckets);
+        map->buckets = new_buckets;
+    }
 
 }
 
