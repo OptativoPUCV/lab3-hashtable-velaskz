@@ -42,23 +42,46 @@ int is_equal(void* key1, void* key2){
 void insertMap(HashMap * map, char * key, void * value) {
     
     long posicion = hash(key, map->capacity);
-    
-    if (map->buckets[posicion] == NULL || map->buckets[posicion]->key == NULL){
 
-        map->size++;
-        Pair* nuevoPair = createPair(key, value);
-        
-        if(nuevoPair == NULL){
+    if (map->buckets[posicion] == NULL) {
+        // No hay colisión en este bucket, creamos un nuevo Pair y lo asignamos directamente
+        Pair * nuevoPair = createPair(key, value);
+
+        if (nuevoPair == NULL) {
+            // Manejo de error si no se puede crear el nuevo Pair
             free(nuevoPair);
             return;
         }
 
-        nuevoPair->value = value;
-        nuevoPair->key = key;
         map->buckets[posicion] = nuevoPair;
-        
-        //recorrer el mapa hasta encontrar un aposición vacía
-        //posición++
+        map->size++;
+    } else {
+        // Hay una colisión, manejaremos esto usando listas enlazadas
+        Pair * current = map->buckets[posicion];
+        Pair * prev = NULL;
+
+        // Buscamos si la clave ya existe en la lista enlazada
+        while (current != NULL) {
+            if (is_equal(current->key, key)) {
+                // La clave ya existe, actualizamos el valor
+                current->value = value;
+                return;
+            }
+            prev = current;
+            current = current->next;
+        }
+
+        // La clave no existe en la lista, creamos un nuevo Pair y lo agregamos al final de la lista
+        Pair * nuevoPair = createPair(key, value);
+
+        if (nuevoPair == NULL) {
+            // Manejo de error si no se puede crear el nuevo Pair
+            free(nuevoPair);
+            return;
+        }
+
+        prev->next = nuevoPair;
+        map->size++;
     }
 }
 
