@@ -43,45 +43,51 @@ void insertMap(HashMap * map, char * key, void * value) {
     
     long posicion = hash(key, map->capacity);
 
-    if (map->buckets[posicion] == NULL) {
-        // No hay colisión en este bucket, creamos un nuevo Pair y lo asignamos directamente
-        Pair * nuevoPair = createPair(key, value);
+    // Comprobar si la posición está ocupada o si la clave ya existe
+    if (map->buckets[posicion] == NULL || map->buckets[posicion]->key == NULL) {
+        map->size++;
+        Pair* nuevoPair = createPair(key, value);
 
         if (nuevoPair == NULL) {
-            // Manejo de error si no se puede crear el nuevo Pair
             free(nuevoPair);
             return;
         }
 
+        nuevoPair->value = value;
+        nuevoPair->key = key;
         map->buckets[posicion] = nuevoPair;
-        map->size++;
     } else {
-        // Hay una colisión, manejaremos esto usando listas enlazadas
-        Pair * current = map->buckets[posicion];
-        Pair * prev = NULL;
+        // La posición ya está ocupada, podemos manejar esto de varias maneras,
+        // una opción podría ser implementar una estrategia de manejo de colisiones,
+        // como encadenamiento o sondeo lineal. Por ejemplo, podríamos buscar la
+        // siguiente posición disponible en el arreglo y colocar el par clave-valor allí.
+        // Esto depende de la estrategia de manejo de colisiones que desees implementar.
 
-        // Buscamos si la clave ya existe en la lista enlazada
-        while (current != NULL) {
-            if (is_equal(current->key, key)) {
-                // La clave ya existe, actualizamos el valor
-                current->value = value;
-                return;
+        // Ejemplo de sondeo lineal (busca la siguiente posición vacía):
+        long siguientePosicion = (posicion + 1) % map->capacity;
+        while (siguientePosicion != posicion) {
+            if (map->buckets[siguientePosicion] == NULL || map->buckets[siguientePosicion]->key == NULL) {
+                map->size++;
+                Pair* nuevoPair = createPair(key, value);
+
+                if (nuevoPair == NULL) {
+                    free(nuevoPair);
+                    return;
+                }
+
+                nuevoPair->value = value;
+                nuevoPair->key = key;
+                map->buckets[siguientePosicion] = nuevoPair;
+                break;
             }
-            prev = current;
-            current = current->next;
+            siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
 
-        // La clave no existe en la lista, creamos un nuevo Pair y lo agregamos al final de la lista
-        Pair * nuevoPair = createPair(key, value);
-
-        if (nuevoPair == NULL) {
-            // Manejo de error si no se puede crear el nuevo Pair
-            free(nuevoPair);
-            return;
+        // Si se recorrió todo el arreglo y no se encontró una posición vacía,
+        // esto significa que el mapa está lleno y no se pudo insertar el par clave-valor.
+        if (siguientePosicion == posicion) {
+            printf("El mapa está lleno, no se pudo insertar el par clave-valor.\n");
         }
-
-        prev->next = nuevoPair;
-        map->size++;
     }
 }
 
