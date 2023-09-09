@@ -169,28 +169,14 @@ Pair * searchMap(HashMap * map,  char * key) {
 }
 
 Pair * firstMap(HashMap * map) {
-    // Verifica si 'current' está en una posición válida.
-    if (map->current >= 0 && map->current < map->capacity) {
-        // Busca el siguiente Pair válido en los buckets a partir de 'current + 1'.
-        for (long i = map->current + 1; i < map->capacity; i++) {
-            if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
-                // Actualiza 'current' al nuevo índice.
-                map->current = i;
-                return map->buckets[i];
-            }
-        }
-    } else {
-        // Si 'current' está fuera de rango o no se ha posicionado previamente, busca desde el inicio.
-        for (long i = 0; i < map->capacity; i++) {
-            if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
-                // Actualiza 'current' al nuevo índice.
-                map->current = i;
-                return map->buckets[i];
-            }
+    for (long i = 0; i < map->capacity; i++) {
+        
+        if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
+            map->current = i;
+            return map->buckets[i];
         }
     }
     
-    // Si no se encontró ningún Pair válido, establece 'current' en -1.
     map->current = -1;
     return NULL;
 }

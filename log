@@ -677,3 +677,9 @@ Sat 09 Sep 2023 01:35:48 AM UTC:
  tests:  11|2
 total_score: 50/70
 eb24687
+Sat 09 Sep 2023 01:36:01 AM UTC: 
+ hashmap.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
+ tests:  13|2
+total_score: 50/70
+33a2358
