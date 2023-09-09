@@ -157,6 +157,7 @@ Pair * searchMap(HashMap * map,  char * key) {
                 return map->buckets[posicion];
                 }
             }
+            siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
     }
 
