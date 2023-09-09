@@ -80,39 +80,37 @@ void insertMap(HashMap * map, char * key, void * value) {
 
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
+    
+    // Duplica la capacidad del mapa.
+    long new_capacity = map->capacity * 2;
 
-    float load_factor = (float)map->size / map->capacity;
-
-    if (load_factor > 0.7) {
-        long viejaCapacidad = map->capacity;
-        Pair **viejoBuckets = map->buckets;
-
-        map->capacity = viejaCapacidad * 2;
-
-        Pair **nuevoBuckets = (Pair **)malloc(sizeof(Pair *) * map->capacity);
-
-        if (nuevoBuckets == NULL) {
-
-            return;
-        }
-
-        for (long i = 0; i < map->capacity; i++) {
-            nuevoBuckets[i] = NULL;
-        }
-
-        for (long i = 0; i < viejaCapacidad; i++) {
-            if (viejoBuckets[i] != NULL && viejoBuckets[i]->key != NULL) {
-
-                long nuevaPosicion = hash(viejoBuckets[i]->key, map->capacity);
-
-                nuevoBuckets[nuevaPosicion] = viejoBuckets[i];
-            }
-        }
-
-        free(viejoBuckets);
-        map->buckets = nuevoBuckets;
+    // Crea un nuevo arreglo de buckets con la nueva capacidad.
+    Pair **new_buckets = (Pair **)calloc(new_capacity, sizeof(Pair *));
+    
+    if (new_buckets == NULL) {
+        // Maneja el error de asignación de memoria.
+        perror("Error al asignar memoria para el nuevo arreglo de buckets");
+        return;
     }
 
+    // Rehash los pares clave-valor en el nuevo arreglo de buckets.
+    for (long i = 0; i < map->capacity; i++) {
+        if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
+            // Calcula la nueva posición en el nuevo arreglo de buckets.
+            long new_position = hash(map->buckets[i]->key, new_capacity);
+
+            // Coloca el par clave-valor en la nueva posición.
+            new_buckets[new_position] = map->buckets[i];
+        }
+    }
+
+    // Libera la memoria del arreglo de buckets antiguo.
+    free(map->buckets);
+
+    // Actualiza la capacidad y el arreglo de buckets del mapa.
+    map->capacity = new_capacity;
+    map->buckets = new_buckets;
+    
 }
 
 HashMap * createMap(long capacity) {
