@@ -140,38 +140,54 @@ void eraseMap(HashMap * map,  char * key) {
 
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
+            // Se ha encontrado el par clave-valor en la posición actual.
 
+            // Libera la memoria del par clave-valor.
             free(map->buckets[posicion]->key);
-            //free(map->buckets[posicion]->value);
-            
-            map->buckets[posicion]->key = NULL;
+            free(map->buckets[posicion]->value);
+            free(map->buckets[posicion]);
 
+            // Establece el bucket a NULL.
+            map->buckets[posicion] = NULL;
+
+            // Decrementa el tamaño del mapa.
             map->size--;
+
+            // Establece 'current' en -1 para indicar que no hay posición válida.
             map->current = -1;
 
-            return; 
+            return; // Salir de la función.
         }
     } else {
-
+        // El par clave-valor no se encuentra en la posición actual, busca en las posiciones siguientes.
         long siguientePosicion = (posicion + 1) % map->capacity;
         while (siguientePosicion != posicion) {
             if (map->buckets[siguientePosicion] != NULL && map->buckets[siguientePosicion]->key != NULL) {
                 if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
+                    // Se ha encontrado el par clave-valor en la posición siguiente.
 
-                    free(map->buckets[posicion]->key);
-                    //free(map->buckets[posicion]->value);
-                    
-                    map->buckets[siguientePosicion]->key = NULL;
+                    // Libera la memoria del par clave-valor.
+                    free(map->buckets[siguientePosicion]->key);
+                    free(map->buckets[siguientePosicion]->value);
+                    free(map->buckets[siguientePosicion]);
 
+                    // Establece el bucket a NULL.
+                    map->buckets[siguientePosicion] = NULL;
+
+                    // Decrementa el tamaño del mapa.
                     map->size--;
+
+                    // Establece 'current' en -1 para indicar que no hay posición válida.
                     map->current = -1;
 
-                    return; 
+                    return; // Salir de la función.
                 }
             }
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
     }
+
+    // Si no se encontró el par clave-valor, no se realiza ninguna acción.
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
