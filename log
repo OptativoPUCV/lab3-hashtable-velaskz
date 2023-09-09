@@ -502,3 +502,17 @@ Sat 09 Sep 2023 12:55:23 AM UTC:
  tests:  8|3
 total_score: 40/70
 0359a46
+Sat 09 Sep 2023 12:55:56 AM UTC: 
+ hashmap.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+In file included from test.c:4:
+hashmap.c: In function ‘eraseMap’:
+hashmap.c:140:33: error: expected expression before ‘.’ token
+  140 |     long initialPos = posicion; .
+      |                                 ^
+hashmap.c:140:10: error: unused variable ‘initialPos’ [-Werror=unused-variable]
+  140 |     long initialPos = posicion; .
+      |          ^~~~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+5220421
