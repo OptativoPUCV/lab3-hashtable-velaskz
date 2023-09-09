@@ -142,9 +142,7 @@ void eraseMap(HashMap * map,  char * key) {
 
 Pair * searchMap(HashMap * map,  char * key) {   
 
-    long posicion = hash(key, map->capacity); // Calcula la posición de la clave usando la función hash
-
-    // Verifica si la posición actual contiene un par válido y la clave coincide
+    long posicion = hash(key, map->capacity); 
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
             map->current = posicion; // Establece la posición actual
@@ -165,7 +163,6 @@ Pair * searchMap(HashMap * map,  char * key) {
     }
 
     map->current = -1; // Si no se encuentra la clave, establece la posición actual en -1
-    return NULL; // Retorna NULL, ya que la clave no se encontró en el mapa
 }
 
 Pair * firstMap(HashMap * map) {
