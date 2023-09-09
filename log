@@ -378,3 +378,17 @@ hashmap.c:169:1: error: control reaches end of non-void function [-Werror=return
 cc1: all warnings being treated as errors
 Compilation failed
 aa69b55
+Sat 09 Sep 2023 12:06:24 AM UTC: 
+ hashmap.c | 1 +
+ 1 file changed, 1 insertion(+)
+In file included from test.c:4:
+hashmap.c: In function ‘searchMap’:
+hashmap.c:169:5: error: ‘return’ with no value, in function returning non-void [-Werror=return-type]
+  169 |     return;
+      |     ^~~~~~
+hashmap.c:143:8: note: declared here
+  143 | Pair * searchMap(HashMap * map,  char * key) {
+      |        ^~~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+3b70011
