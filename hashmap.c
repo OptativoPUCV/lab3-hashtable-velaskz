@@ -162,8 +162,6 @@ Pair * searchMap(HashMap * map,  char * key) {
         }
     }
 
-    map->current = -1; // Si no se encuentra la clave, establece la posición actual en -1
-}
 
 Pair * firstMap(HashMap * map) {
 
