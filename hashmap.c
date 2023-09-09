@@ -193,6 +193,7 @@ Pair * firstMap(HashMap * map) {
     // Si no se encontró ningún Pair válido, establece 'current' en -1.
     map->current = -1;
     return NULL;
+}
 
 Pair * nextMap(HashMap * map) {
 
