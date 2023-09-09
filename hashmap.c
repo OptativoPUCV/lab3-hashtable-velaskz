@@ -145,23 +145,25 @@ Pair * searchMap(HashMap * map,  char * key) {
     long posicion = hash(key, map->capacity); 
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
-            map->current = posicion; // Establece la posición actual
-            return map->buckets[posicion]; // Retorna el par encontrado
+            map->current = posicion; 
+            return map->buckets[posicion]; 
         }
     } else {
-        // Si la posición no contiene la clave, busca en las siguientes posiciones circularmente
         long siguientePosicion = (posicion + 1) % map->capacity;
         while (siguientePosicion != posicion) {
             if (map->buckets[siguientePosicion] != NULL && map->buckets[siguientePosicion]->key != NULL) {
                 if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
-                    map->current = siguientePosicion; // Establece la posición actual
-                    return map->buckets[siguientePosicion]; // Retorna el par encontrado
+                    map->current = siguientePosicion; 
+                    return map->buckets[siguientePosicion]; 
                 }
             }
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
     }
 
+    map->current = -1; 
+    return NULL; 
+}
 
 Pair * firstMap(HashMap * map) {
 
