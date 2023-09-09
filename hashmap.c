@@ -140,37 +140,27 @@ void eraseMap(HashMap * map,  char * key) {
 
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
-            // Se ha encontrado el par clave-valor en la posición actual.
-
-            // Marca el par clave-valor como eliminado estableciendo 'key' a NULL.
+ 
             map->buckets[posicion]->key = NULL;
 
-            // Decrementa el tamaño del mapa.
-            map->size--;
+            /*map->size--;
+            map->current = -1;*/
 
-            // Establece 'current' en -1 para indicar que no hay posición válida.
-            map->current = -1;
-
-            return; // Salir de la función.
+            return; 
         }
     } else {
-        // El par clave-valor no se encuentra en la posición actual, busca en las posiciones siguientes.
+
         long siguientePosicion = (posicion + 1) % map->capacity;
         while (siguientePosicion != posicion) {
             if (map->buckets[siguientePosicion] != NULL && map->buckets[siguientePosicion]->key != NULL) {
                 if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
-                    // Se ha encontrado el par clave-valor en la posición siguiente.
 
-                    // Marca el par clave-valor como eliminado estableciendo 'key' a NULL.
                     map->buckets[siguientePosicion]->key = NULL;
 
-                    // Decrementa el tamaño del mapa.
-                    map->size--;
+                    /*map->size--;
+                    map->current = -1;*/
 
-                    // Establece 'current' en -1 para indicar que no hay posición válida.
-                    map->current = -1;
-
-                    return; // Salir de la función.
+                    return; 
                 }
             }
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
