@@ -137,22 +137,32 @@ HashMap * createMap(long capacity) {
 void eraseMap(HashMap * map,  char * key) {    
 
     long posicion = hash(key, map->capacity);
-    long initialPos = posicion; 
 
-    do {
-        if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
-            if (strcmp(map->buckets[posicion]->key, key) == 0) {
-            
-                free(map->buckets[posicion]);
-                map->buckets[posicion] = NULL;
-                map->current = -1;
-                map->size--;
-                return;
-            }
+    if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
+        if (strcmp(map->buckets[posicion]->key, key) == 0) {
+            free(map->buckets[posicion]);
+            map->buckets[posicion] = NULL;
+            map->size--;
+            map->current = -1;
+            return; 
         }
+    } else {
+        long siguientePosicion = (posicion + 1) % map->capacity;
+        while (siguientePosicion != posicion) {
+            if (map->buckets[siguientePosicion] != NULL && map->buckets[siguientePosicion]->key != NULL) {
+                if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
+                    free(map->buckets[siguientePosicion]);
+                    map->buckets[siguientePosicion] = NULL;
+                    map->size--;
 
-        posicion = (posicion + 1) % map->capacity;
-    } while (posicion != initialPos);  
+                    map->current = -1;
+
+                    return; 
+                }
+            }
+            siguientePosicion = (siguientePosicion + 1) % map->capacity;
+        }
+    }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
