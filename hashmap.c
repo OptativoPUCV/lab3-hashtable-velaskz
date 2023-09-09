@@ -141,6 +141,7 @@ void eraseMap(HashMap * map,  char * key) {
     if (pair != NULL){
         free(pair->key);
         pair->key = NULL;
+        map->current = -1;
         map->size--;
     }
     
