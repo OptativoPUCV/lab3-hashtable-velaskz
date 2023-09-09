@@ -516,3 +516,9 @@ hashmap.c:140:10: error: unused variable ‘initialPos’ [-Werror=unused-variab
 cc1: all warnings being treated as errors
 Compilation failed
 5220421
+Sat 09 Sep 2023 12:56:05 AM UTC: 
+ hashmap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ tests:  8|3
+total_score: 40/70
+17f42e6
