@@ -137,47 +137,23 @@ HashMap * createMap(long capacity) {
 void eraseMap(HashMap * map,  char * key) {    
 
     long posicion = hash(key, map->capacity);
+    long initialPos = posicion;  // Guarda la posición inicial.
 
-    if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
-        if (strcmp(map->buckets[posicion]->key, key) == 0) {
-            // Se ha encontrado el par clave-valor en la posición actual.
-
-            // Libera la memoria del par clave-valor y establece el bucket a NULL.
-            free(map->buckets[posicion]);
-            map->buckets[posicion] = NULL;
-
-            // Decrementa el tamaño del mapa.
-            map->size--;
-
-            // Establece 'current' en -1 para indicar que no hay posición válida.
-            map->current = -1;
-
-            return; // Salir de la función.
-        }
-    } else {
-        // El par clave-valor no se encuentra en la posición actual, busca en las posiciones siguientes.
-        long siguientePosicion = (posicion + 1) % map->capacity;
-        while (siguientePosicion != posicion) {
-            if (map->buckets[siguientePosicion] != NULL && map->buckets[siguientePosicion]->key != NULL) {
-                if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
-                    // Se ha encontrado el par clave-valor en la posición siguiente.
-
-                    // Libera la memoria del par clave-valor y establece el bucket a NULL.
-                    free(map->buckets[siguientePosicion]);
-                    map->buckets[siguientePosicion] = NULL;
-
-                    // Decrementa el tamaño del mapa.
-                    map->size--;
-
-                    // Establece 'current' en -1 para indicar que no hay posición válida.
-                    map->current = -1;
-
-                    return; // Salir de la función.
-                }
+    do {
+        if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
+            if (strcmp(map->buckets[posicion]->key, key) == 0) {
+                // Si encuentra la clave, elimina el par clave-valor y actualiza 'current'.
+                free(map->buckets[posicion]);
+                map->buckets[posicion] = NULL;
+                map->current = -1;
+                map->size--;
+                return;
             }
-            siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
-    }
+
+        // Avanza a la siguiente posición utilizando sondeo lineal.
+        posicion = (posicion + 1) % map->capacity;
+    } while (posicion != initialPos);  // Continúa hasta que volvamos al punto de inicio.
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
