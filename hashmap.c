@@ -142,7 +142,26 @@ void eraseMap(HashMap * map,  char * key) {
 
 Pair * searchMap(HashMap * map,  char * key) {   
 
-    long posicion = hash(key, map->capacity); 
+    long posicion = hash(key, map->capacity);
+    long initialPos = posicion;  // Guarda la posición inicial.
+
+    do {
+        if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
+            if (strcmp(map->buckets[posicion]->key, key) == 0) {
+                // Si encuentra la clave, actualiza 'current' y devuelve el par clave-valor.
+                map->current = posicion;
+                return map->buckets[posicion];
+            }
+        }
+
+        // Avanza a la siguiente posición utilizando sondeo lineal.
+        posicion = (posicion + 1) % map->capacity;
+    } while (posicion != initialPos);  // Continúa hasta que volvamos al punto de inicio.
+
+    // Si no se encuentra la clave, establece 'current' en -1 y devuelve NULL.
+    map->current = -1;
+    return NULL;
+    /*long posicion = hash(key, map->capacity); 
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
             map->current = posicion; 
@@ -160,8 +179,8 @@ Pair * searchMap(HashMap * map,  char * key) {
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
     }
-    //map->current = -1; 
-    return NULL; 
+    map->current = -1; 
+    return NULL; */
 }
 
 Pair * firstMap(HashMap * map) {
