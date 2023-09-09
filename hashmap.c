@@ -143,7 +143,6 @@ void eraseMap(HashMap * map,  char * key) {
 
             free(map->buckets[posicion]->key);
             //free(map->buckets[posicion]->value);
-            free(map->buckets[posicion]);
             
             map->buckets[posicion]->key = NULL;
 
@@ -161,7 +160,6 @@ void eraseMap(HashMap * map,  char * key) {
 
                     free(map->buckets[posicion]->key);
                     //free(map->buckets[posicion]->value);
-                    free(map->buckets[posicion]);
                     
                     map->buckets[siguientePosicion]->key = NULL;
 
