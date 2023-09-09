@@ -142,6 +142,7 @@ void eraseMap(HashMap * map,  char * key) {
         if(strcmp(map->buckets[posicion]->key, key) == 0){
             free(map->buckets[posicion]);
             map->buckets[posicion] = NULL;
+            return;
         }
     }
     else{
@@ -151,6 +152,7 @@ void eraseMap(HashMap * map,  char * key) {
                 if(strcmp(map->buckets[posicion]->key, key) == 0){
                 free(map->buckets[posicion]);
                 map->buckets[posicion] = NULL;
+                return;
                 }
             }
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
