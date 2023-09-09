@@ -142,34 +142,30 @@ void eraseMap(HashMap * map,  char * key) {
 
 Pair * searchMap(HashMap * map,  char * key) {   
 
-    long posicion = hash(key, map->capacity);
+    long posicion = hash(key, map->capacity); // Calcula la posición de la clave usando la función hash
 
-    // Comprueba si la posición inicial contiene la clave deseada.
+    // Verifica si la posición actual contiene un par válido y la clave coincide
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
-            // Actualiza el campo 'current' con la posición actual.
-            map->current = posicion;
-            return map->buckets[posicion];
+            map->current = posicion; // Establece la posición actual
+            return map->buckets[posicion]; // Retorna el par encontrado
         }
     } else {
+        // Si la posición no contiene la clave, busca en las siguientes posiciones circularmente
         long siguientePosicion = (posicion + 1) % map->capacity;
         while (siguientePosicion != posicion) {
-            // Verifica si la posición actual contiene la clave deseada.
             if (map->buckets[siguientePosicion] != NULL && map->buckets[siguientePosicion]->key != NULL) {
                 if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
-                    // Actualiza el campo 'current' con la posición actual.
-                    map->current = siguientePosicion;
-                    return map->buckets[siguientePosicion];
+                    map->current = siguientePosicion; // Establece la posición actual
+                    return map->buckets[siguientePosicion]; // Retorna el par encontrado
                 }
             }
-            // Avanza a la siguiente posición.
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
     }
 
-    // Si no se encontró un par clave-valor con la clave deseada, establece 'current' en -1.
-    map->current = -1;
-    return NULL;
+    map->current = -1; // Si no se encuentra la clave, establece la posición actual en -1
+    return NULL; // Retorna NULL, ya que la clave no se encontró en el mapa
 }
 
 Pair * firstMap(HashMap * map) {
