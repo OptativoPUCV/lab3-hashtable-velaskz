@@ -490,3 +490,9 @@ Sat 09 Sep 2023 12:53:43 AM UTC:
  tests:  8|3
 total_score: 40/70
 7a8f5fd
+Sat 09 Sep 2023 12:54:48 AM UTC: 
+ hashmap.c | 36 ++++++++++++++++++++++++++++--------
+ 1 file changed, 28 insertions(+), 8 deletions(-)
+ tests:  8|3
+total_score: 40/70
+e6f510a
