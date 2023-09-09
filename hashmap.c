@@ -136,18 +136,14 @@ HashMap * createMap(long capacity) {
 
 void eraseMap(HashMap * map,  char * key) {    
 
-    // Calcula la posición del bucket donde se supone que se encuentra el par clave-valor.
     long posicion = hash(key, map->capacity);
 
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
             // Se ha encontrado el par clave-valor en la posición actual.
 
-            // Libera la memoria del par clave-valor.
-            free(map->buckets[posicion]);
-
-            // Establece el bucket a NULL.
-            map->buckets[posicion] = NULL;
+            // Marca el par clave-valor como eliminado estableciendo 'key' a NULL.
+            map->buckets[posicion]->key = NULL;
 
             // Decrementa el tamaño del mapa.
             map->size--;
@@ -165,11 +161,8 @@ void eraseMap(HashMap * map,  char * key) {
                 if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
                     // Se ha encontrado el par clave-valor en la posición siguiente.
 
-                    // Libera la memoria del par clave-valor.
-                    free(map->buckets[siguientePosicion]);
-
-                    // Establece el bucket a NULL.
-                    map->buckets[siguientePosicion] = NULL;
+                    // Marca el par clave-valor como eliminado estableciendo 'key' a NULL.
+                    map->buckets[siguientePosicion]->key = NULL;
 
                     // Decrementa el tamaño del mapa.
                     map->size--;
@@ -183,7 +176,6 @@ void eraseMap(HashMap * map,  char * key) {
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
     }
-
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
