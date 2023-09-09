@@ -169,7 +169,16 @@ Pair * searchMap(HashMap * map,  char * key) {
 }
 
 Pair * firstMap(HashMap * map) {
-
+    for (long i = 0; i < map->capacity; i++) {
+        if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
+            // Establece 'current' en la posición actual.
+            map->current = i;
+            return map->buckets[i];
+        }
+    }
+    
+    // Si no se encontró ningún Pair válido, establece 'current' en -1.
+    map->current = -1;
     return NULL;
 }
 
