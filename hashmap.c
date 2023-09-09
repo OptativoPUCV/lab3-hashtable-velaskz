@@ -166,7 +166,6 @@ Pair * searchMap(HashMap * map,  char * key) {
 
     // Si no se encontró un par clave-valor con la clave deseada, establece 'current' en -1.
     map->current = -1;
-    return NULL;
 }
 
 Pair * firstMap(HashMap * map) {
