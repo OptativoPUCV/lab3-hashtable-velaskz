@@ -160,8 +160,7 @@ Pair * searchMap(HashMap * map,  char * key) {
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
     }
-
-    map->current = -1; 
+    //map->current = -1; 
     return NULL; 
 }
 
