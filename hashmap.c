@@ -140,11 +140,15 @@ void eraseMap(HashMap * map,  char * key) {
 
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
+            // Se ha encontrado el par clave-valor en la posición actual.
 
             free(map->buckets[posicion]->key);
-            //free(map->buckets[posicion]->value);
+            // Si es necesario, también libera la memoria del valor.
+            // free(map->buckets[posicion]->value);
             
-            map->buckets[posicion]->key = NULL;
+            free(map->buckets[posicion]); // Libera el Pair.
+
+            map->buckets[posicion] = NULL; // Establece el bucket a NULL.
 
             map->size--;
             map->current = -1;
@@ -152,16 +156,19 @@ void eraseMap(HashMap * map,  char * key) {
             return; 
         }
     } else {
-
         long siguientePosicion = (posicion + 1) % map->capacity;
         while (siguientePosicion != posicion) {
             if (map->buckets[siguientePosicion] != NULL && map->buckets[siguientePosicion]->key != NULL) {
                 if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
+                    // Se ha encontrado el par clave-valor en la posición siguiente.
 
-                    free(map->buckets[posicion]->key);
-                    //free(map->buckets[posicion]->value);
+                    free(map->buckets[siguientePosicion]->key);
+                    // Si es necesario, también libera la memoria del valor.
+                    // free(map->buckets[siguientePosicion]->value);
                     
-                    map->buckets[siguientePosicion]->key = NULL;
+                    free(map->buckets[siguientePosicion]); // Libera el Pair.
+
+                    map->buckets[siguientePosicion] = NULL; // Establece el bucket a NULL.
 
                     map->size--;
                     map->current = -1;
@@ -172,6 +179,8 @@ void eraseMap(HashMap * map,  char * key) {
             siguientePosicion = (siguientePosicion + 1) % map->capacity;
         }
     }
+
+    // Si no se encontró el par clave-valor, no se realiza ninguna acción.
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
