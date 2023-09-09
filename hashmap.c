@@ -144,6 +144,18 @@ void eraseMap(HashMap * map,  char * key) {
             map->buckets[posicion] = NULL;
         }
     }
+    else{
+        long siguientePosicion = (posicion + 1) % map->capacity;
+        while (siguientePosicion != posicion) {
+            if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL){
+                if(strcmp(map->buckets[posicion]->key, key) == 0){
+                free(map->buckets[posicion]);
+                map->buckets[posicion] = NULL;
+                }
+            }
+            siguientePosicion = (siguientePosicion + 1) % map->capacity;
+        }
+    }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
