@@ -725,3 +725,9 @@ hashmap.c:153:9: error: expected expression before ‘}’ token
       |         ^
 Compilation failed
 63e02f6
+Sat 09 Sep 2023 01:54:00 AM UTC: 
+ hashmap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ tests:  17|0
+total_score: 70/70
+4bd7f6a
