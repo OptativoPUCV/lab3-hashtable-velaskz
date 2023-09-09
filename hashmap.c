@@ -146,7 +146,7 @@ Pair * searchMap(HashMap * map,  char * key) {
 
     if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
         if (strcmp(map->buckets[posicion]->key, key) == 0) {
-
+            // Actualiza el campo 'current' con la posición actual.
             map->current = posicion;
             return map->buckets[posicion];
         }
@@ -155,7 +155,7 @@ Pair * searchMap(HashMap * map,  char * key) {
         while (siguientePosicion != posicion) {
             if (map->buckets[siguientePosicion] != NULL && map->buckets[siguientePosicion]->key != NULL) {
                 if (strcmp(map->buckets[siguientePosicion]->key, key) == 0) {
-
+                    // Actualiza el campo 'current' con la posición actual.
                     map->current = siguientePosicion;
                     return map->buckets[siguientePosicion];
                 }
@@ -164,6 +164,7 @@ Pair * searchMap(HashMap * map,  char * key) {
         }
     }
 
+    // Si no se encontró un par clave-valor con la clave deseada, establece 'current' en -1.
     map->current = -1;
     return NULL;
 }
