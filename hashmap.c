@@ -149,6 +149,16 @@ Pair * searchMap(HashMap * map,  char * key) {
             return map->buckets[posicion];
         }
     }
+    else{
+        long siguientePosicion = (posicion + 1) % map->capacity;
+        while (siguientePosicion != posicion){
+            if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL){
+                if(strcmp(map->buckets[posicion]->key, key) == 0){
+                return map->buckets[posicion];
+                }
+            }
+        }
+    }
 
     return NULL;
 }
