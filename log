@@ -711,3 +711,17 @@ Sat 09 Sep 2023 01:44:50 AM UTC:
  tests:  17|0
 total_score: 70/70
 8d55757
+Sat 09 Sep 2023 01:53:35 AM UTC: 
+ hashmap.c | 25 ++++++++-----------------
+ 1 file changed, 8 insertions(+), 17 deletions(-)
+In file included from test.c:4:
+hashmap.c: In function ‘searchMap’:
+hashmap.c:148:59: error: expected ‘)’ before ‘{’ token
+  148 |             if (is_equal(map->buckets[posicion]->key, key) {
+      |                ~                                          ^~
+      |                                                           )
+hashmap.c:153:9: error: expected expression before ‘}’ token
+  153 |         }
+      |         ^
+Compilation failed
+63e02f6

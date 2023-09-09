@@ -81,35 +81,26 @@ void insertMap(HashMap * map, char * key, void * value) {
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
     
-    // Duplica la capacidad del mapa.
-    long new_capacity = map->capacity * 2;
-
-    // Crea un nuevo arreglo de buckets con la nueva capacidad.
-    Pair **new_buckets = (Pair **)calloc(new_capacity, sizeof(Pair *));
+    long nuevaCapacidad = map->capacity * 2;
     
-    if (new_buckets == NULL) {
-        // Maneja el error de asignación de memoria.
-        perror("Error al asignar memoria para el nuevo arreglo de buckets");
+    Pair **nuevoBuckets = (Pair **)calloc(nuevaCapacidad, sizeof(Pair *));
+    
+    if (nuevoBuckets == NULL) {
         return;
     }
 
-    // Rehash los pares clave-valor en el nuevo arreglo de buckets.
     for (long i = 0; i < map->capacity; i++) {
         if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
-            // Calcula la nueva posición en el nuevo arreglo de buckets.
-            long new_position = hash(map->buckets[i]->key, new_capacity);
 
-            // Coloca el par clave-valor en la nueva posición.
-            new_buckets[new_position] = map->buckets[i];
+            long nuevaPosicion = hash(map->buckets[i]->key, nuevaCapacidad);
+            nuevoBuckets[nuevaPosicion] = map->buckets[i];
         }
     }
 
-    // Libera la memoria del arreglo de buckets antiguo.
     free(map->buckets);
 
-    // Actualiza la capacidad y el arreglo de buckets del mapa.
-    map->capacity = new_capacity;
-    map->buckets = new_buckets;
+    map->capacity = nuevaCapacidad;
+    map->buckets = nuevoBuckets;
     
 }
 
@@ -118,7 +109,9 @@ HashMap * createMap(long capacity) {
     HashMap* nuevoMapa = (HashMap*)malloc(sizeof(HashMap));
     
     if (nuevoMapa != NULL) {
+        
         nuevoMapa->buckets = (Pair**)malloc(sizeof(Pair*) * capacity);
+        
         if (nuevoMapa->buckets == NULL){
             free(nuevoMapa);
             return NULL;
@@ -152,7 +145,7 @@ Pair * searchMap(HashMap * map,  char * key) {
 
     do {
         if (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL) {
-            if (strcmp(map->buckets[posicion]->key, key) == 0) {
+            if (is_equal(map->buckets[posicion]->key, key) {
 
                 map->current = posicion;
                 return map->buckets[posicion];
