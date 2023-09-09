@@ -182,7 +182,7 @@ Pair * firstMap(HashMap * map) {
 }
 
 Pair * nextMap(HashMap * map) {
-.
+
     if (map->current >= 0 && map->current < map->capacity) {
 
         for (long i = map->current + 1; i < map->capacity; i++) {
